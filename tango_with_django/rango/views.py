@@ -44,7 +44,7 @@ def index(request):
 	visits = request.session.get('visits')
 	if not visits:
 		visits = 1
-	
+
 	reset_last_visit_time = False
 
 	last_visit = request.session.get('last_visit')
@@ -66,6 +66,7 @@ def index(request):
 	context_dict['visits'] = visits
 
 	response = render(request,'rango/index.html', context_dict)
+	
 	return response	
 
 	#reset_last_visit_time = False
