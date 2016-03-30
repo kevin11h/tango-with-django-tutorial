@@ -40,4 +40,3 @@ if settings.DEBUG:
 		(r'^media/(?P<path>.*)',
 			'serve',
 			{'document_root':  settings.MEDIA_ROOT }), )
-
