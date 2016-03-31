@@ -101,8 +101,8 @@ def index(request):
 	#return response
 
 def about(request):
-	return HttpResponse("Rango says here is the about page")
-	#return render(request, 'rango/about.html', {})
+	#return HttpResonse("Rango says here is the about page")
+	return render(request, 'rango/about.html', {})
 
 def category(request, category_name_slug):
 
