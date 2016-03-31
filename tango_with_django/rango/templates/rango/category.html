@@ -58,4 +58,18 @@
 		</div>
 		{% endif %}
 	</div>
+
+	<p>
+
+	<strong id="like_count">{{ category.likes }}</strong> people like this category 
+
+	{% if user.is_authenticated %}
+		<button id="likes" data-catid="{{category.id}}" class="btn btn-primary" type="button">
+		<span class="glyphicon glypicon-thumbs-up"></span>
+		Like
+		</button>
+	{% endif %}
+
+	</p>
+
 {% endblock %}

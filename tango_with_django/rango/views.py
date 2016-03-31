@@ -4,6 +4,7 @@ from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 
 # Import the Category model
 from rango.models import Category, Page
@@ -334,3 +335,30 @@ def track_url(request):
 			except:
 				pass
 		return redirect(url)
+
+@login_required
+def like_category(request):
+
+	cat_id = None
+	if request.method == 'GET':
+		cat_id = request.GET['category_id']
+
+	likes = 0
+	if cat_id:
+		cat = Category.objects.get(id=int(cat_id))
+		if cat:
+			likes = cat.likes + 1
+			cat.likes = likes
+			cat.save()
+
+	return HttpResponse(likes)
+
+def suggest_category(request):
+	cat_list = []
+	starts_with = ''
+	if request.method == 'GET':
+		starts_with = requst.GET['suggestion']
+
+	cat_list = get_category_list(8, starts_with)
+
+	return render(request, 'rango/category_list.html', {'cat_list': cat_list})
