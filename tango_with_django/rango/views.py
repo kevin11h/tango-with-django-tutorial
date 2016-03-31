@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 # Import the Category model
 from rango.models import Category, Page
+from rango.bing_search import run_query
 from datetime import datetime
 
 # Create your views here.
@@ -66,7 +67,7 @@ def index(request):
 	context_dict['visits'] = visits
 
 	response = render(request,'rango/index.html', context_dict)
-	
+
 	return response	
 
 	#reset_last_visit_time = False
@@ -289,3 +290,15 @@ def user_logout(request):
 
 	# Take the user back to the homepage.
 	return HttpResponseRedirect('/rango/')
+
+def search(request):
+	result_list = []
+
+	if request.method=='POST':
+		query = request.POST['query'].strip()
+
+		if query:
+			# Run our Bing function to get the results list!
+			result_list = run_query(query)
+
+	return render(request, 'rango/search.html', {'result_list': result_list})
